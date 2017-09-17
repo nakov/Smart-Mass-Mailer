@@ -56,11 +56,19 @@ class SmartMassMailer
         if (startRow < 2)
             startRow = 2;
 
-        using (var package = new ExcelPackage(
-            new FileInfo(Configuration["recipientsExcelFile"])))
+        var excelFile = new FileInfo(Configuration["recipientsExcelFile"]);
+        if (! excelFile.Exists)
+            throw new FileNotFoundException($"The file '{excelFile.FullName}' does not exist.", excelFile.FullName);
+
+        using (var package = new ExcelPackage(excelFile))
         {
             ExcelWorksheet workSheet = package.Workbook.Worksheets[1];
-            
+
+            int mailsLeft = workSheet.Dimension.End.Row - startRow;
+            TimeSpan timeLeft = TimeSpan.FromMilliseconds(
+                mailsLeft * (delayBetweenEmails + 100));
+            Console.WriteLine("Estimated time: {0} hours", timeLeft);
+
             // Read Excel file column titles (the first worhsheet row)
             var columnIndexByName = new Dictionary<string, int>();
             for (int col = 1; col <= workSheet.Dimension.End.Column; col++)
@@ -84,6 +92,9 @@ class SmartMassMailer
                 Console.WriteLine("Done.");
                 Thread.Sleep(delayBetweenEmails);
             }
-        }            
+
+            Console.WriteLine();
+            Console.WriteLine("Done.");
+        }
     }
 }

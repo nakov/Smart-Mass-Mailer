@@ -5,3 +5,5 @@
 /email-template.html
 /.vs
 /Smart-Mass-Mailer.csproj.user
+/obj
+/bin
