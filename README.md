@@ -1,6 +1,6 @@
 # Smart-Mass-Mailer
 
-This is a very simple bulk email sender (client), implemented in C# and .NET Core. It sends an email message (given a HTML file) to a list of recipients (given in Excel spreadsheet, holding columns "email" + "name").
+This is a very simple bulk email sender (client), implemented in C# and .NET Core. It sends an email message (by given HTML template file) to a list of recipients (given in Excel spreadsheet, holding columns "email" + "name").
 
 This software is for developers only. It is not intended for end-users, no GUI is available.
 
