@@ -87,7 +87,7 @@ class SmartMassMailer
                 string bodyHtml = File.ReadAllText(
                     Configuration["emailHtmlTemplate"], Encoding.UTF8);
                 bodyHtml = bodyHtml.Replace("[name]", personName);
-                Console.Write($"[{row} of {workSheet.Dimension.End.Row}] Sending email to: {email} (Name = {personName}) ... ");
+                Console.Write($"[{row-1} of {workSheet.Dimension.End.Row-1}] Sending email to: {email} (Name = {personName}) ... ");
                 SendEmail(email, subject, bodyHtml);
                 Console.WriteLine("Done.");
                 Thread.Sleep(delayBetweenEmails);
